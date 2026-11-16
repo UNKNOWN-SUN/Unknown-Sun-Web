@@ -2,11 +2,30 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import Products from './Products/Products';
 
-test('renders catalog products with their available images', () => {
-  render(<Products />);
+describe('The main app', () => {
+  it('should render the store name', () => {
+    render(<App />);
+    expect(screen.getByRole('link', { name: 'UNKNOWN-SUN' })).toBeInTheDocument();
+  });
 
-  expect(screen.getAllByText('Slim Shirt')).toHaveLength(2);
-  const images = screen.getAllByRole('img', { name: 'Slim Shirt by Nike' });
-  expect(images).toHaveLength(2);
-  expect(images.map((image) => image.getAttribute('src'))).toEqual(['/d1.jpg', '/d1.jpg']);
+  it('should render the shopping navigation links', () => {
+    render(<App />);
+    expect(screen.getByRole('link', { name: 'Cart' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Sign In' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Pants' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Shirts' })).toBeInTheDocument();
+  });
+
+  it('should render the shopping categories heading', () => {
+    render(<App />);
+    expect(
+      screen.getByRole('heading', { level: 2, name: 'Shopping Categories' })
+    ).toBeInTheDocument();
+  });
+
+  it('should render the products', () => {
+    render(<App />);
+    expect(screen.getAllByRole('link', { name: 'Slim Shirt' })).toHaveLength(3);
+    expect(screen.getAllByText('$60')).toHaveLength(3);
+  });
 });
