@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import Products from './Products/Products';
+import App from './App';
 
 describe('The main app', () => {
   it('should render the store name', () => {
